@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=\"es\">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,9 +36,9 @@ body,html{height:100%;background:var(--bg);color:var(--txt);overflow:hidden;}
   border-radius: 50% !important;
 }
 
-/* Panel Lateral e Interfaz */
+/* Panel Lateral */
 .pnl{position:absolute;top:16px;left:16px;width:340px;background:var(--panel);z-index:10;border-radius:16px;border:1px solid var(--line);backdrop-filter:blur(16px);display:flex;flex-direction:column;max-height:calc(100% - 32px);box-shadow:0 20px 40px rgba(0,0,0,.5);}
-.hdr{padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:between;}
+.hdr{padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
 .title-group h1{font-size:18px;font-weight:700;letter-spacing:-0.5px;color:#fff;}
 .title-group p{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;font-weight:600;}
 
@@ -47,8 +47,9 @@ body,html{height:100%;background:var(--bg);color:var(--txt);overflow:hidden;}
 .search-input {width:100%;padding:10px 14px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;color:#fff;font-size:13px;outline:none;transition:all 0.2s;}
 .search-input:focus {border-color:var(--acc);background:rgba(255,255,255,.07);}
 .search-results {position:absolute;top:100%;left:16px;right:16px;background:#141625;border:1px solid var(--line);border-radius:10px;max-height:200px;overflow-y:auto;z-index:20;display:none;box-shadow:0 10px 20px rgba(0,0,0,0.3);}
-.search-item {padding:10px;font-size:12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.03);display:flex;justify-content:space-between;}
+.search-item {padding:10px;font-size:12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.03);display:flex;justify-content:space-between;align-items:center;}
 .search-item:hover {background:var(--acc-dim);color:var(--acc);}
+.search-type {font-size:10px;text-transform:uppercase;letter-spacing:0.5px;padding:2px 6px;border-radius:4px;}
 
 /* Selector de Áreas */
 .tabs-areas {display:flex;padding:4px 16px;gap:6px;border-bottom:1px solid var(--line);}
@@ -78,11 +79,11 @@ body,html{height:100%;background:var(--bg);color:var(--txt);overflow:hidden;}
 .sel-box label {font-size:11px;color:var(--mut);font-weight:600;text-transform:uppercase;}
 select {width:100%;padding:10px;background:#141625;border:1px solid var(--line);border-radius:8px;color:#fff;font-size:13px;outline:none;cursor:pointer;}
 
-/* Panel de Edición de Datos */
+/* Botones de Acción */
 .btn-edit-source {margin:4px 16px 16px 16px;padding:12px;background:rgba(255,255,255,.03);border:1px dashed var(--line);border-radius:10px;color:var(--mut);font-size:12px;font-weight:600;cursor:pointer;text-align:center;transition:all 0.2s;}
 .btn-edit-source:hover {background:rgba(253,191,36,0.08);border-color:var(--warn);color:var(--warn);}
 
-/* Ajustes Generales de Paneles Flotantes */
+/* Paneles Flotantes Auxiliares */
 .f-pnl{position:absolute;bottom:24px;right:24px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;z-index:10;width:300px;box-shadow:0 10px 30px rgba(0,0,0,.4);backdrop-filter:blur(16px);display:none;}
 .f-pnl.show{display:block;}
 .f-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line);}
@@ -90,7 +91,6 @@ select {width:100%;padding:10px;background:#141625;border:1px solid var(--line);
 .f-close{cursor:pointer;color:var(--mut);font-size:14px;}
 .f-close:hover{color:#fff;}
 
-/* Elementos de la lista no ubicada */
 .nu-item{padding:8px;border-bottom:1px solid var(--line);}
 .nu-item:last-child{border-bottom:none;}
 .nu-item .n{font-size:12px;font-weight:600;color:#fff;}
@@ -115,9 +115,9 @@ select {width:100%;padding:10px;background:#141625;border:1px solid var(--line);
   </div>
 
   <div class="tabs-areas">
-    <button class="tab-btn active" onclick="switchArea('logistica')">Logística</button>
-    <button class="tab-btn" onclick="switchArea('antorcha')">Rutas Antorcha</button>
-    <button class="tab-btn" onclick="switchArea('talleres')">Info Talleres</button>
+    <button class="tab-btn active" id="btnAreaLog" onclick="switchArea('logistica')">Logística</button>
+    <button class="tab-btn" id="btnAreaAnt" onclick="switchArea('antorcha')">Rutas Antorcha</button>
+    <button class="tab-btn" id="btnAreaTal" onclick="switchArea('talleres')">Info Talleres</button>
   </div>
 
   <div class="scrl">
@@ -145,7 +145,7 @@ select {width:100%;padding:10px;background:#141625;border:1px solid var(--line);
       </div>
     </div>
     
-    <button class="btn-edit-source" style="margin:0; border-style:solid; background:rgba(91,108,240,0.05); color:var(--blue); border-color:rgba(91,108,240,0.2);" id="btnNoubic">⚠️ Ver Entregas Pendientes</button>
+    <button class="btn-edit-source" style="margin:0; border-style:solid; background:rgba(91,108,240,0.05); color:#5b6cf0; border-color:rgba(91,108,240,0.2);" id="btnNoubic">⚠️ Ver Entregas Pendientes</button>
   </div>
 
   <div class="btn-edit-source" onclick="openEditor()">🛠️ Modificar Fuente de Información</div>
@@ -160,18 +160,17 @@ select {width:100%;padding:10px;background:#141625;border:1px solid var(--line);
   <div class="f-hdr"><h3>Modificar Base de Datos</h3><span class="f-close" onclick="closeEditor()">✕</span></div>
   <div style="font-size:12px; color:var(--mut); display:flex; flex-direction:column; gap:8px;">
     <p>Selecciona un elemento en el mapa para editar sus datos adjuntos o introduce nuevas coordenadas.</p>
-    <button class="tab-btn" style="color:var(--warn); border-color:var(--warn);" onclick="alert('Funcionalidad de guardado lista para enlazar con tu Sheets/API.')">Confirmar Cambios</button>
+    <button class="tab-btn" style="color:var(--warn); border-color:var(--warn);" onclick="alert('Funcionalidad lista para enlazar con tu base v3.json o Sheets.')">Confirmar Cambios</button>
   </div>
 </div>
 
 <script>
-// VARIABLES E INFRAESTRUCTURA ORIGINAL INTACTA
 const DATA_URL = "https://gerardod119507.github.io/mapa-cochabamba/v3.json";
 let MAP, CLUSTER_COL, CLUSTER_EQ;
 let LAYER_REC = L.layerGroup(), LAYER_HIT = L.layerGroup();
 let DATA_REC=[], DATA_COL=[], DATA_HIT=[], DATA_EQ=[], NOUBIC=[];
 
-const st = { recintos:false, colegios:false, hitos:false, equipos:false, recSel:'', cat:'Todos', vista:'H1' };
+const st = { recintos:false, colegios:false, hitos:false, equipos:false, recSel:'' };
 
 // MAPA BASE
 MAP = L.map('map', { zoomControl: false }).setView([-17.3935, -66.1570], 13);
@@ -181,38 +180,32 @@ CLUSTER_COL = L.markerClusterGroup({ maxClusterRadius: 40 });
 CLUSTER_EQ = L.markerClusterGroup({ maxClusterRadius: 40 });
 MAP.addLayer(LAYER_REC); MAP.addLayer(CLUSTER_COL); MAP.addLayer(LAYER_HIT); MAP.addLayer(CLUSTER_EQ);
 
-// Lógica de acordeón adaptable y fluido
+// Acordeón adaptable fluido
 function toggleAcc(btn) {
   const section = btn.parentElement;
   const isOpen = section.classList.contains('open');
-  
-  // Cerrar secciones hermanas para simular un acordeón limpio
   document.querySelectorAll('.acc-section').forEach(sec => sec.classList.remove('open'));
-  
-  if (!isOpen) {
-    section.classList.add('open');
-  }
+  if (!isOpen) section.classList.add('open');
 }
 
-// Control de áreas del menú superior
+// Control del selector de áreas superiores
 function switchArea(area) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  
-  // Modificaciones visuales de capas según el área seleccionada
+  if(area === 'logistica') document.getElementById('btnAreaLog').classList.add('active');
   if(area === 'antorcha') {
-    alert("Cargando rutas y nodos de la Antorcha STEM+...");
-    // Aquí puedes enlazar tus funciones específicas de dibujo de polilíneas
-  } else if(area === 'talleres') {
-    alert("Mostrando filtros y cronogramas de Info Talleres.");
+    document.getElementById('btnAreaAnt').classList.add('active');
+    alert("Área de Rutas de Antorcha activada.");
+  }
+  if(area === 'talleres') {
+    document.getElementById('btnAreaTal').classList.add('active');
+    alert("Área de Info Talleres activada.");
   }
 }
 
-// Control del Editor de Datos
 function openEditor() { document.getElementById('editPanel').classList.add('show'); }
-function closeEditor() { document.getElementById('editPanel').remove('show'); }
+function closeEditor() { document.getElementById('editPanel').classList.remove('show'); }
 
-// CARGA DE DATOS ORIGINAL INTEGRA
+// CARGA DE DATOS ORIGINAL
 async function load() {
   try {
     const r = await fetch(DATA_URL);
@@ -223,7 +216,6 @@ async function load() {
     DATA_EQ = d.equipos || [];
     NOUBIC = d.no_ubicadas || [];
     
-    // Poblar el selector de Centros de Capacitación de manera correcta
     const sel = document.getElementById('selRecinto');
     DATA_REC.forEach(rec => {
       let opt = document.createElement('option');
@@ -242,7 +234,7 @@ async function load() {
   } catch(e) { console.error("Error cargando base v3.json", e); }
 }
 
-// Buscador predictivo en tiempo real (Tipo Google)
+// Buscador predictivo inteligente
 function initSearchAuto() {
   const inp = document.getElementById('mapSearch');
   const res = document.getElementById('searchResults');
@@ -252,16 +244,14 @@ function initSearchAuto() {
     if(!val) { res.style.display = 'none'; return; }
     
     let html = '';
-    // Buscar en colegios
     DATA_COL.forEach(c => {
       if(c.ue && c.ue.toLowerCase().includes(val)) {
-        html += `<div class="search-item" onclick="flyToPos(${c.lat}, ${c.lng}, '${c.ue}')"><span>🏫 ${c.ue}</span><style="color:var(--mut)">Colegio</style></div>`;
+        html += `<div class="search-item" onclick="flyToPos(${c.lat}, ${c.lng}, '${c.ue}')"><span>🏫 ${c.ue}</span><span class="search-type" style="background:rgba(91,108,240,0.1); color:#5b6cf0;">Colegio</span></div>`;
       }
     });
-    // Buscar en equipos
     DATA_EQ.forEach(e => {
       if(e.nombre && e.nombre.toLowerCase().includes(val)) {
-        html += `<div class="search-item" onclick="flyToPos(${e.lat}, ${e.lng}, '${e.nombre}')"><span>🤖 ${e.nombre}</span><style="color:var(--blue)">Equipo</style></div>`;
+        html += `<div class="search-item" onclick="flyToPos(${e.lat}, ${e.lng}, '${e.nombre}')"><span>🤖 ${e.nombre}</span><span class="search-type" style="background:rgba(93,202,165,0.1); color:#5DCAA5;">Equipo</span></div>`;
       }
     });
     
@@ -283,7 +273,7 @@ function flyToPos(lat, lng, name) {
   }
 }
 
-// LOGICA DE RENDERIZADO ORIGINAL INTACTA
+// RENDERIZADO DEL MAPA
 function update() {
   LAYER_REC.clearLayers();
   CLUSTER_COL.clearLayers();
@@ -293,7 +283,7 @@ function update() {
   if (st.recintos) {
     DATA_REC.forEach(r => {
       if (!st.recSel || r.nombre === st.recSel) {
-        L.circleMarker([r.lat, r.lng], { radius: 9, color: '#fff', fillColor: varProp('--acc'), fillOpacity: 0.9, weight: 2 })
+        L.circleMarker([r.lat, r.lng], { radius: 9, color: '#fff', fillColor: '#5DCAA5', fillOpacity: 0.9, weight: 2 })
          .bindPopup(`<b>Centro: ${r.nombre}</b><br>${r.direccion || ''}`).addTo(LAYER_REC);
       }
     });
@@ -302,18 +292,14 @@ function update() {
   if (st.colegios) {
     DATA_COL.forEach(c => {
       if (!st.recSel || c.recinto_asignado === st.recSel) {
-        L.circleMarker([c.lat, c.lng], { radius: 6, color: varProp('--blue'), fillColor: '#fff', fillOpacity: 0.7, weight: 1.5 })
+        L.circleMarker([c.lat, c.lng], { radius: 6, color: '#5b6cf0', fillColor: '#fff', fillOpacity: 0.7, weight: 1.5 })
          .bindPopup(`<b>${c.ue}</b><br>Asignado a: ${c.recinto_asignado}`).addTo(CLUSTER_COL);
       }
     });
   }
-  
-  // Mapeo simétrico para Hitos y Equipos según tus fuentes...
 }
 
-function varProp(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-
-// ASIGNACION DE INTERRUPTORES
+// INTERRUPTORES DE CAPAS
 document.getElementById('swRecintos').onclick = function() { this.classList.toggle('on'); st.recintos = this.classList.contains('on'); update(); };
 document.getElementById('swColegios').onclick = function() { this.classList.toggle('on'); st.colegios = this.classList.contains('on'); update(); };
 document.getElementById('swHitos').onclick = function() { this.classList.toggle('on'); st.hitos = this.classList.contains('on'); update(); };
@@ -321,7 +307,7 @@ document.getElementById('swEquipos').onclick = function() { this.classList.toggl
 
 document.getElementById('selRecinto').onchange = function() { st.recSel = this.value; update(); };
 
-// Manejo de paneles flotantes auxiliares
+// Ventana de Pendientes
 document.getElementById('btnNoubic').onclick = () => {
   const list = document.getElementById('nuList');
   if(!NOUBIC.length){ list.innerHTML = '<div class="nu-item">Sin pendientes</div>'; }
